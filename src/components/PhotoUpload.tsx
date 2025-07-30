@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Upload, X, Image, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -178,8 +178,13 @@ export const PhotoUpload = ({ onPhotosUploaded, maxPhotos, onNext }: PhotoUpload
             <p className="text-xs sm:text-base text-muted-foreground mb-4">
               Clique aqui ou arraste as imagens ({photos.length}/{maxPhotos})
             </p>
-            <Button variant="outline" type="button" size="sm" className="sm:size-default">
+            <Button 
+              variant="outline" 
+              type="button" 
+              size="sm" 
+              className="sm:size-default"
               disabled={isBlocked}
+            >
               <Upload className="mr-2 h-4 w-4" />
               {isBlocked ? 'Limite Atingido' : 'Selecionar Fotos'}
             </Button>
