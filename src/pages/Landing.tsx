@@ -249,7 +249,7 @@ export const Landing = () => {
                   </div>
                   
                   <Button 
-                    onClick={handleStartFree}
+                    onClick={() => navigate('/app')}
                     className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white shadow-lg"
                     size="lg"
                   >
