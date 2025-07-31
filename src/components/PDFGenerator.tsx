@@ -303,6 +303,7 @@ const createHTMLTemplate = (data: ReportData, imageUrls: string[] = [], quilomet
         border-top: 1px solid #ddd;
         padding-top: 20px;
         page-break-inside: avoid;
+        line-height: 1.6;
       }
       .footer-logo {
         font-weight: bold;
@@ -331,14 +332,32 @@ const createHTMLTemplate = (data: ReportData, imageUrls: string[] = [], quilomet
       ul {
         margin: 10px 0;
         padding-left: 20px;
+        line-height: 1.8;
       }
       li {
         margin: 8px 0;
-        line-height: 1.4;
+        line-height: 1.8;
+        margin-bottom: 12px;
       }
       h2 {
         color: #c10000;
         margin: 15px 0 10px 0;
+        line-height: 1.4;
+      }
+      p {
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
+      .technical-item {
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+      .technical-label {
+        margin-bottom: 5px;
+        line-height: 1.4;
+      }
+      .technical-value {
+        line-height: 1.6;
       }
       /* Page break utilities */
       .page-break-before {

@@ -169,7 +169,11 @@ export const Plans = () => {
                 </div>
               </div>
               
-              <Button className="w-full gradient-primary text-white hover:opacity-90 shadow-primary">
+              <Button 
+                onClick={handleSubscribe}
+                disabled={checkoutLoading || subscriptionLoading || isActive()}
+                className="w-full gradient-primary text-white hover:opacity-90 shadow-primary"
+              >
                 onClick={handleSubscribe}
                 disabled={checkoutLoading || subscriptionLoading || isActive()}
                 {checkoutLoading ? (
