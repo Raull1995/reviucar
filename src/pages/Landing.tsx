@@ -31,7 +31,7 @@ export const Landing = () => {
     },
     {
       number: "4️⃣",
-      title: "Envie o resultado direto para o WhatsApp",
+      title: "Envie o valor direto para o WhatsApp",
       description: "do cliente com um clique."
     },
     {
@@ -199,7 +199,7 @@ export const Landing = () => {
                     <span className="text-4xl font-bold text-foreground">R$ 0</span>
                   </div>
                   <CardDescription className="text-muted-foreground">
-                    1 análise • Conheça a plataforma sem compromisso
+                    3 análises • Conheça a plataforma sem compromisso
                   </CardDescription>
                 </CardHeader>
                 
@@ -327,7 +327,7 @@ export const Landing = () => {
               <div>
                 <h4 className="font-semibold text-foreground mb-4">Contato</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>📱 WhatsApp: (11) 99999-9999</li>
+                  <li>📱 WhatsApp: (61) 98187-5542</li>
                   <li>✉️ contato@reviucar.com.br</li>
                 </ul>
               </div>
