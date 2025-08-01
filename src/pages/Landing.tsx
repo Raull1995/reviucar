@@ -17,27 +17,27 @@ export const Landing = () => {
     {
       number: "1️⃣",
       title: "Tire fotos do veículo",
-      description: "destaque batidas, vidros e detalhes."
+      description: "Destaque batidas, vidros e detalhes."
     },
     {
       number: "2️⃣", 
       title: "Insira a placa e a quilometragem",
-      description: "dados reais integrados à FIPE."
+      description: "Dados reais integrados à FIPE."
     },
     {
       number: "3️⃣",
       title: "Receba o laudo automático",
-      description: "com imagens, valor estimado e cálculo manual."
+      description: "Com imagens, valor estimado e cálculo manual."
     },
     {
       number: "4️⃣",
       title: "Envie o valor direto para o WhatsApp",
-      description: "do cliente com um clique."
+      description: "Do cliente com um clique."
     },
     {
       number: "5️⃣",
       title: "Baixe o relatório em PDF completo",
-      description: "para seu controle."
+      description: "Para seu controle."
     }
   ];
 
@@ -45,27 +45,27 @@ export const Landing = () => {
     {
       icon: Shield,
       title: 'Decisão rápida e segura',
-      description: 'evite comprar carros com problemas ocultos.'
+      description: 'Evite comprar carros com problemas ocultos.'
     },
     {
       icon: BarChart3,
       title: 'Economia real',
-      description: 'saiba exatamente quanto oferecer pelo veículo.'
+      description: 'Saiba exatamente quanto oferecer pelo veículo.'
     },
     {
       icon: Star,
       title: 'Profissionalismo',
-      description: 'mostre ao cliente laudos detalhados e confiáveis.'
+      description: 'Mostre ao cliente laudos detalhados e confiáveis.'
     },
     {
       icon: Zap,
       title: 'Praticidade',
-      description: 'interface simples, análise rápida e envio direto no WhatsApp.'
+      description: 'Interface simples, análise rápida e envio direto no WhatsApp.'
     },
     {
       icon: FileText,
       title: 'Controle total',
-      description: 'relatório em PDF com imagens para seu arquivo.'
+      description: 'Relatório em PDF com imagens para seu arquivo.'
     }
   ];
 
@@ -88,7 +88,7 @@ export const Landing = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-foreground mb-6 leading-tight">
-              Evite prejuízo ao comprar carros usados — gere laudos completos com IA em 1 minuto
+              Evite prejuízo ao comprar carros usados. Gere laudos completos com IA em 1 minuto
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
