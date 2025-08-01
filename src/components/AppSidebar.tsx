@@ -4,6 +4,7 @@ import { ReviuCarLogo } from "@/components/ReviuCarLogo";
 import { useAuth } from "@/hooks/use-auth";
 import { useSubscription } from "@/hooks/use-subscription";
 import { Badge } from "@/components/ui/badge";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Sidebar,
   SidebarContent,
@@ -14,6 +15,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
 interface AppSidebarProps {
@@ -24,32 +26,49 @@ interface AppSidebarProps {
 export function AppSidebar({ onNavigate, currentPage }: AppSidebarProps) {
   const { signOut } = useAuth();
   const { getActivePlan, isActive } = useSubscription();
+  const isMobile = useIsMobile();
+  const { setOpenMobile } = useSidebar();
   
   const activePlan = getActivePlan();
 
+  const handleNavigate = (page: 'main' | 'history' | 'plans' | 'settings') => {
+    onNavigate(page);
+    // Close sidebar on mobile after navigation
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
+
+  const handleSignOut = () => {
+    signOut();
+    // Close sidebar on mobile after sign out
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
   const menuItems = [
     {
       title: "Nova Análise",
       icon: Car,
-      onClick: () => onNavigate('main'),
+      onClick: () => handleNavigate('main'),
       isActive: currentPage === 'main'
     },
     {
       title: "Histórico",
       icon: History,
-      onClick: () => onNavigate('history'),
+      onClick: () => handleNavigate('history'),
       isActive: currentPage === 'history'
     },
     {
       title: "Planos",
       icon: CreditCard,
-      onClick: () => onNavigate('plans'),
+      onClick: () => handleNavigate('plans'),
       isActive: currentPage === 'plans'
     },
     {
       title: "Configurações",
       icon: Settings,
-      onClick: () => onNavigate('settings'),
+      onClick: () => handleNavigate('settings'),
       isActive: currentPage === 'settings'
     }
   ];
@@ -97,7 +116,7 @@ export function AppSidebar({ onNavigate, currentPage }: AppSidebarProps) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              onClick={signOut}
+              onClick={handleSignOut}
               className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
             >
               <LogOut className="h-4 w-4" />

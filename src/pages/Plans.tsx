@@ -60,11 +60,11 @@ export const Plans = () => {
           </p>
         </div>
 
-        {/* Plans Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {/* Plans Grid - Mobile Responsive */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
           
           {/* Free Plan */}
-          <Card className="relative border-2 border-gray-light/30 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+          <Card className="relative border-2 border-gray-light/30 hover:border-primary/30 transition-all duration-300 hover:shadow-lg mx-2 md:mx-0">
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
               <Badge className="bg-success text-success-foreground px-4 py-1">
                 <Shield className="h-3 w-3 mr-1" />
@@ -75,15 +75,15 @@ export const Plans = () => {
             <CardHeader className="text-center pb-4">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Shield className="h-6 w-6 text-primary" />
-                <CardTitle className="text-2xl font-heading font-bold text-gray-dark">
+                <CardTitle className="text-xl md:text-2xl font-heading font-bold text-gray-dark">
                   Plano Gratuito
                 </CardTitle>
               </div>
               <div className="mb-4">
-                <span className="text-4xl font-bold text-gray-dark">R$ 0</span>
-                <span className="text-gray-medium ml-2">para sempre</span>
+                <span className="text-3xl md:text-4xl font-bold text-gray-dark">R$ 0</span>
+                <span className="text-gray-medium ml-2 text-sm md:text-base">para sempre</span>
               </div>
-              <CardDescription className="text-gray-medium">
+              <CardDescription className="text-gray-medium text-sm md:text-base">
                 Você está utilizando este plano atualmente
               </CardDescription>
             </CardHeader>
@@ -123,7 +123,7 @@ export const Plans = () => {
           </Card>
 
           {/* Professional Plan */}
-          <Card className="relative border-2 border-primary/50 hover:border-primary transition-all duration-300 shadow-primary">
+          <Card className="relative border-2 border-primary/50 hover:border-primary transition-all duration-300 shadow-primary mx-2 md:mx-0">
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
               <Badge className="gradient-primary text-white px-4 py-1">
                 <Star className="h-3 w-3 mr-1" />
@@ -134,15 +134,15 @@ export const Plans = () => {
             <CardHeader className="text-center pb-4 pt-8">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Star className="h-6 w-6 text-primary" />
-                <CardTitle className="text-2xl font-heading font-bold text-gray-dark">
+                <CardTitle className="text-xl md:text-2xl font-heading font-bold text-gray-dark">
                   Plano Profissional
                 </CardTitle>
               </div>
               <div className="mb-4">
-                <span className="text-4xl font-bold text-primary">R$ 300</span>
-                <span className="text-gray-medium ml-2">/mês</span>
+                <span className="text-3xl md:text-4xl font-bold text-primary">R$ 300</span>
+                <span className="text-gray-medium ml-2 text-sm md:text-base">/mês</span>
               </div>
-              <CardDescription className="text-gray-medium">
+              <CardDescription className="text-gray-medium text-sm md:text-base px-2">
                 Para quem precisa avaliar com frequência e manter um padrão profissional
               </CardDescription>
             </CardHeader>
@@ -172,10 +172,8 @@ export const Plans = () => {
               <Button 
                 onClick={handleSubscribe}
                 disabled={checkoutLoading || subscriptionLoading || isActive()}
-                className="w-full gradient-primary text-white hover:opacity-90 shadow-primary"
+                className="w-full gradient-primary text-white hover:opacity-90 shadow-primary text-sm md:text-base"
               >
-                onClick={handleSubscribe}
-                disabled={checkoutLoading || subscriptionLoading || isActive()}
                 {checkoutLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -189,7 +187,8 @@ export const Plans = () => {
                 ) : (
                   <>
                     <ArrowRight className="mr-2 h-4 w-4" />
-                    Assinar Agora - R$ 300/mês
+                    <span className="hidden sm:inline">Assinar Agora - R$ 300/mês</span>
+                    <span className="sm:hidden">Assinar - R$ 300/mês</span>
                   </>
                 )}
               </Button>
@@ -198,41 +197,41 @@ export const Plans = () => {
         </div>
 
         {/* Features Comparison */}
-        <div className="mt-16 max-w-4xl mx-auto">
+        <div className="mt-12 md:mt-16 max-w-4xl mx-auto px-2 md:px-0">
           <h2 className="text-2xl font-heading font-bold text-center text-gray-dark mb-8">
             Compare os Recursos
           </h2>
           
-          <Card className="overflow-hidden">
+          <Card className="overflow-hidden mx-2 md:mx-0">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="gradient-secondary">
                   <tr>
-                    <th className="text-left p-4 font-medium text-gray-dark">Recursos</th>
-                    <th className="text-center p-4 font-medium text-gray-dark">Gratuito</th>
-                    <th className="text-center p-4 font-medium text-gray-dark">Profissional</th>
+                    <th className="text-left p-2 md:p-4 font-medium text-gray-dark text-sm md:text-base">Recursos</th>
+                    <th className="text-center p-2 md:p-4 font-medium text-gray-dark text-sm md:text-base">Gratuito</th>
+                    <th className="text-center p-2 md:p-4 font-medium text-gray-dark text-sm md:text-base">Profissional</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-light/30">
                   <tr>
-                    <td className="p-4 text-gray-dark">Análises por mês</td>
-                    <td className="p-4 text-center text-gray-medium">3 únicas</td>
-                    <td className="p-4 text-center text-primary font-medium">Ilimitadas</td>
+                    <td className="p-2 md:p-4 text-gray-dark text-sm md:text-base">Análises por mês</td>
+                    <td className="p-2 md:p-4 text-center text-gray-medium text-sm md:text-base">3 únicas</td>
+                    <td className="p-2 md:p-4 text-center text-primary font-medium text-sm md:text-base">50</td>
                   </tr>
                   <tr className="bg-muted/30">
-                    <td className="p-4 text-gray-dark">Upload de imagens</td>
-                    <td className="p-4 text-center"><Check className="h-5 w-5 text-success mx-auto" /></td>
-                    <td className="p-4 text-center"><Check className="h-5 w-5 text-primary mx-auto" /></td>
+                    <td className="p-2 md:p-4 text-gray-dark text-sm md:text-base">Upload de imagens</td>
+                    <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-success mx-auto" /></td>
+                    <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto" /></td>
                   </tr>
                   <tr>
-                    <td className="p-4 text-gray-dark">Histórico de análises</td>
-                    <td className="p-4 text-center"><X className="h-5 w-5 text-destructive mx-auto" /></td>
-                    <td className="p-4 text-center"><Check className="h-5 w-5 text-primary mx-auto" /></td>
+                    <td className="p-2 md:p-4 text-gray-dark text-sm md:text-base">Histórico de análises</td>
+                    <td className="p-2 md:p-4 text-center"><X className="h-4 w-4 md:h-5 md:w-5 text-destructive mx-auto" /></td>
+                    <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto" /></td>
                   </tr>
                   <tr className="bg-muted/30">
-                    <td className="p-4 text-gray-dark">Suporte prioritário</td>
-                    <td className="p-4 text-center"><X className="h-5 w-5 text-destructive mx-auto" /></td>
-                    <td className="p-4 text-center"><Check className="h-5 w-5 text-primary mx-auto" /></td>
+                    <td className="p-2 md:p-4 text-gray-dark text-sm md:text-base">Suporte prioritário</td>
+                    <td className="p-2 md:p-4 text-center"><X className="h-4 w-4 md:h-5 md:w-5 text-destructive mx-auto" /></td>
+                    <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto" /></td>
                   </tr>
                 </tbody>
               </table>
