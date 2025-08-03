@@ -16,7 +16,7 @@ export const useCheckout = () => {
     priceId, 
     mode, 
     successUrl = `${window.location.origin}/success`,
-    cancelUrl = `${window.location.origin}/plans`
+    cancelUrl = `${window.location.origin}/`
   }: CheckoutParams) => {
     setLoading(true);
 

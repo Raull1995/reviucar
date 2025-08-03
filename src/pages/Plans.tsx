@@ -20,6 +20,7 @@ export const Plans = () => {
     await createCheckoutSession({
       priceId: reviuCarProduct.priceId,
       mode: reviuCarProduct.mode,
+      cancelUrl: `${window.location.origin}/plans`
     });
   };
 
@@ -161,9 +162,9 @@ export const Plans = () => {
                 <div className="flex items-start gap-2">
                   <Star className="h-5 w-5 text-primary mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-primary">Vantagem Profissional</p>
+                    <p className="text-sm font-medium text-primary">Ideal para Profissionais</p>
                     <p className="text-xs text-gray-medium mt-1">
-                      Relatórios sem marca d'água e suporte prioritário
+                      Perfeito para lojistas e revendedores que precisam de análises frequentes
                     </p>
                   </div>
                 </div>
