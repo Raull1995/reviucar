@@ -226,7 +226,7 @@ export const Plans = () => {
                   </tr>
                   <tr>
                     <td className="p-2 md:p-4 text-gray-dark text-sm md:text-base">Histórico de análises</td>
-                    <td className="p-2 md:p-4 text-center"><X className="h-4 w-4 md:h-5 md:w-5 text-destructive mx-auto" /></td>
+                    <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-success mx-auto" /></td>
                     <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto" /></td>
                   </tr>
                   <tr className="bg-muted/30">
