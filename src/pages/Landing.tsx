@@ -337,39 +337,67 @@ export const Landing = () => {
                     <ArrowRight className="mr-2 h-4 w-4" />
                     <span className="hidden sm:inline">Assinar Agora - R$ 300/mês</span>
                     <span className="sm:hidden">Assinar - R$ 300/mês</span>
-                    <thead className="gradient-secondary">
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Features Comparison */}
+            <Card className="border-0 shadow-lg bg-background/60 backdrop-blur-sm mx-2 md:mx-0">
+              <CardHeader className="text-center pb-4">
+                <CardTitle className="text-lg md:text-xl lg:text-2xl font-heading font-bold text-foreground">
+                  Comparação de Recursos
+                </CardTitle>
+                <CardDescription className="text-muted-foreground text-sm md:text-base">
+                  Veja as diferenças entre os planos
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-muted/50">
                       <tr>
-                        <th className="text-left p-2 md:p-4 font-medium text-gray-dark text-sm md:text-base">Recursos</th>
-                        <th className="text-center p-2 md:p-4 font-medium text-gray-dark text-sm md:text-base">Gratuito</th>
-                        <th className="text-center p-2 md:p-4 font-medium text-gray-dark text-sm md:text-base">Profissional</th>
+                        <th className="text-left p-2 md:p-4 font-medium text-foreground text-sm md:text-base">Recursos</th>
+                        <th className="text-center p-2 md:p-4 font-medium text-foreground text-sm md:text-base">Gratuito</th>
+                        <th className="text-center p-2 md:p-4 font-medium text-foreground text-sm md:text-base">Profissional</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-light/30">
+                    <tbody className="divide-y divide-border/40">
                       <tr>
-                        <td className="p-2 md:p-4 text-gray-dark text-sm md:text-base">Análises por mês</td>
-                        <td className="p-2 md:p-4 text-center text-gray-medium text-sm md:text-base">3 únicas</td>
+                        <td className="p-2 md:p-4 text-foreground text-sm md:text-base">Análises por mês</td>
+                        <td className="p-2 md:p-4 text-center text-muted-foreground text-sm md:text-base">3 únicas</td>
                         <td className="p-2 md:p-4 text-center text-primary font-medium text-sm md:text-base">50</td>
                       </tr>
                       <tr className="bg-muted/30">
-                        <td className="p-2 md:p-4 text-gray-dark text-sm md:text-base">Upload de imagens</td>
+                        <td className="p-2 md:p-4 text-foreground text-sm md:text-base">Upload de imagens</td>
                         <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-success mx-auto" /></td>
                         <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto" /></td>
                       </tr>
                       <tr>
-                        <td className="p-2 md:p-4 text-gray-dark text-sm md:text-base">Histórico de análises</td>
+                        <td className="p-2 md:p-4 text-foreground text-sm md:text-base">Consulta FIPE integrada</td>
                         <td className="p-2 md:p-4 text-center"><X className="h-4 w-4 md:h-5 md:w-5 text-destructive mx-auto" /></td>
                         <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto" /></td>
                       </tr>
                       <tr className="bg-muted/30">
-                        <td className="p-2 md:p-4 text-gray-dark text-sm md:text-base">Suporte prioritário</td>
+                        <td className="p-2 md:p-4 text-foreground text-sm md:text-base">Histórico de análises</td>
+                        <td className="p-2 md:p-4 text-center"><X className="h-4 w-4 md:h-5 md:w-5 text-destructive mx-auto" /></td>
+                        <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto" /></td>
+                      </tr>
+                      <tr>
+                        <td className="p-2 md:p-4 text-foreground text-sm md:text-base">Suporte prioritário</td>
+                        <td className="p-2 md:p-4 text-center"><X className="h-4 w-4 md:h-5 md:w-5 text-destructive mx-auto" /></td>
+                        <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto" /></td>
+                      </tr>
+                      <tr className="bg-muted/30">
+                        <td className="p-2 md:p-4 text-foreground text-sm md:text-base">Parecer técnico detalhado</td>
                         <td className="p-2 md:p-4 text-center"><X className="h-4 w-4 md:h-5 md:w-5 text-destructive mx-auto" /></td>
                         <td className="p-2 md:p-4 text-center"><Check className="h-4 w-4 md:h-5 md:w-5 text-primary mx-auto" /></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-              </Card>
-            </div>
+              </CardContent>
+            </Card>
 
             <div className="text-center px-2">
               <p className="text-base md:text-lg font-semibold text-primary">
