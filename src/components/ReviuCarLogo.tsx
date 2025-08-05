@@ -24,7 +24,7 @@ export const ReviuCarLogo = ({ size = "md", showText = true, className = "" }: L
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       {/* Logo SVG */}
-      <div className={sizeClasses[size]}>
+      <div className={`${sizeClasses[size]} flex-shrink-0`}>
         <svg
           viewBox="0 0 64 64"
           className="h-full w-auto"
@@ -99,8 +99,9 @@ export const ReviuCarLogo = ({ size = "md", showText = true, className = "" }: L
       
       {/* Text logo */}
       {showText && (
-        <span className={`font-heading font-semibold text-foreground tracking-tight ${textSizes[size]}`}>
-          <span className="text-foreground font-bold">R</span>eviucar
+        <span className={`font-heading font-semibold tracking-tight ${textSizes[size]} flex items-center`}>
+          <span className="text-primary font-bold">R</span>
+          <span className="text-foreground">eviucar</span>
         </span>
       )}
     </div>
