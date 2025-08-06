@@ -35,20 +35,75 @@ interface ReportData {
   };
 }
 
-// Logo ReviuCar em base64 (simplified version)
+// Enhanced ReviuCar logo with QR code placeholder
 const REVIUCAR_LOGO_BASE64 = `data:image/svg+xml;base64,${btoa(`
-<svg width="160" height="60" viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg">
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#991B1B;stop-opacity:1" />
     </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
   </defs>
-  <rect width="160" height="60" fill="url(#gradient)" rx="8"/>
-  <circle cx="25" cy="30" r="12" fill="white"/>
-  <text x="22" y="36" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#DC2626">R</text>
-  <text x="45" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">REVIUCAR</text>
-  <text x="45" y="40" font-family="Arial, sans-serif" font-size="10" fill="white">Avaliação Inteligente</text>
+  <rect width="200" height="80" fill="url(#gradient)" rx="12" filter="url(#shadow)"/>
+  <circle cx="35" cy="40" r="18" fill="white"/>
+  <text x="30" y="48" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#DC2626">R</text>
+  <text x="60" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="white">REVIUCAR</text>
+  <text x="60" y="52" font-family="Arial, sans-serif" font-size="12" fill="white">Avaliação Inteligente</text>
+</svg>
+`)}`;
+
+// QR Code for website access
+const QR_CODE_BASE64 = `data:image/svg+xml;base64,${btoa(`
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="80" height="80" fill="white" stroke="#333" stroke-width="1"/>
+  <g fill="#333">
+    <!-- QR Code pattern simulation -->
+    <rect x="8" y="8" width="16" height="16"/>
+    <rect x="56" y="8" width="16" height="16"/>
+    <rect x="8" y="56" width="16" height="16"/>
+    <rect x="32" y="32" width="16" height="16"/>
+    <!-- Additional QR pattern elements -->
+    <rect x="12" y="12" width="8" height="8" fill="white"/>
+    <rect x="60" y="12" width="8" height="8" fill="white"/>
+    <rect x="12" y="60" width="8" height="8" fill="white"/>
+    <rect x="36" y="36" width="8" height="8" fill="white"/>
+    <!-- Random QR pattern -->
+    <rect x="28" y="8" width="4" height="4"/>
+    <rect x="36" y="8" width="4" height="4"/>
+    <rect x="44" y="8" width="4" height="4"/>
+    <rect x="8" y="28" width="4" height="4"/>
+    <rect x="8" y="36" width="4" height="4"/>
+    <rect x="8" y="44" width="4" height="4"/>
+    <rect x="28" y="72" width="4" height="4"/>
+    <rect x="36" y="72" width="4" height="4"/>
+    <rect x="44" y="72" width="4" height="4"/>
+    <rect x="72" y="28" width="4" height="4"/>
+    <rect x="72" y="36" width="4" height="4"/>
+    <rect x="72" y="44" width="4" height="4"/>
+  </g>
+  <text x="40" y="92" text-anchor="middle" font-size="8" fill="#666">reviucar.com.br</text>
+</svg>
+`)}`;
+
+// Verified seal
+const VERIFIED_SEAL_BASE64 = `data:image/svg+xml;base64,${btoa(`
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+    </linearGradient>
+    <filter id="sealShadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <circle cx="50" cy="50" r="45" fill="url(#sealGradient)" filter="url(#sealShadow)"/>
+  <circle cx="50" cy="50" r="35" fill="none" stroke="white" stroke-width="2"/>
+  <path d="M35 50 L45 60 L65 40" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="50" y="75" text-anchor="middle" font-size="10" font-weight="bold" fill="white">VISTORIADO</text>
 </svg>
 `)}`;
 
@@ -128,15 +183,18 @@ const createHTMLTemplate = (data: ReportData, imageUrls: string[] = [], quilomet
   // Determine risk level and color
   let riskLevel = 'MÉDIO';
   let riskClass = 'risco-medio';
+  let riskIcon = '⚠️';
   
   if (data.sintese.conclusao_final === 'Veículo sem indícios de colisão' || 
       data.sintese.conclusao_final === 'Reparo estético') {
     riskLevel = 'BAIXO';
     riskClass = 'risco-baixo';
+    riskIcon = '✅';
   } else if (data.sintese.conclusao_final === 'Batida significativa' || 
              data.sintese.conclusao_final === 'Estrutura comprometida') {
     riskLevel = 'ALTO';
     riskClass = 'risco-alto';
+    riskIcon = '❌';
   }
 
   return `
@@ -144,221 +202,397 @@ const createHTMLTemplate = (data: ReportData, imageUrls: string[] = [], quilomet
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
       @page {
-        margin: 20mm;
+        margin: 15mm;
         size: A4;
       }
       body {
-        font-family: 'Arial', sans-serif;
+        font-family: 'Roboto', 'Arial', sans-serif;
         margin: 0;
         padding: 0;
-        color: #333;
-        line-height: 1.6;
+        color: #2d3748;
+        line-height: 1.7;
         font-size: 14px;
+        background: #ffffff;
       }
+      
       .header {
-        text-align: center;
+        background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+        padding: 25px;
         margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 2px solid #c10000;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
+      
+      .header-left {
+        flex: 1;
+      }
+      
+      .header-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      
       .logo {
-        width: 180px;
-        margin-bottom: 15px;
+        width: 200px;
+        margin-bottom: 10px;
         display: block;
-        margin-left: auto;
-        margin-right: auto;
       }
+      
       .document-title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #c10000;
-        margin: 10px 0;
+        font-size: 28px;
+        font-weight: 700;
+        color: #dc2626;
+        margin: 8px 0;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
       }
+      
       .document-info {
-        color: #666;
-        font-size: 13px;
+        color: #64748b;
+        font-size: 14px;
+        margin-top: 8px;
+        font-weight: 500;
+      }
+      
+      .qr-code {
+        width: 80px;
+        height: 80px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+      }
+      
+      .verified-seal {
+        width: 100px;
+        height: 100px;
         margin-top: 10px;
       }
+      
       .section {
-        margin: 25px 0;
+        margin: 30px 0;
         page-break-inside: avoid;
       }
-      .title {
+      
+      .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a202c;
+        border-bottom: 3px solid #dc2626;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: linear-gradient(90deg, #dc2626 0%, #b91c1c 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .section-icon {
+        font-size: 24px;
+        color: #dc2626;
+      }
+      
+      .content-box {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 1px solid #e2e8f0;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      }
+      
+      .vehicle-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 15px;
+      }
+      
+      .vehicle-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .vehicle-item:last-child {
+        border-bottom: none;
+      }
+      
+      .vehicle-label {
+        font-weight: 600;
+        color: #4a5568;
+        font-size: 13px;
+      }
+      
+      .vehicle-value {
+        font-weight: 500;
+        color: #1a202c;
+        text-align: right;
+      }
+      
+      .technical-results {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        border: 1px solid #bae6fd;
+        padding: 25px;
+        border-radius: 12px;
+        margin: 20px 0;
+      }
+      
+      .technical-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 15px 0;
+        padding: 12px 0;
+        border-bottom: 1px solid #e0f2fe;
+      }
+      
+      .technical-item:last-child {
+        border-bottom: none;
+      }
+      
+      .technical-label {
+        font-weight: 600;
+        color: #0369a1;
+        flex: 1;
+      }
+      
+      .technical-value {
+        color: #1e40af;
+        font-weight: 500;
+        text-align: right;
+        flex: 1;
+      }
+      
+      .conclusion-box {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        border: 2px solid #22c55e;
+        padding: 25px;
+        border-radius: 12px;
+        margin: 20px 0;
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+      }
+      
+      .conclusion-title {
         font-size: 18px;
-        font-weight: bold;
-        color: #c10000;
-        border-bottom: 2px solid #c10000;
-        padding-bottom: 8px;
+        font-weight: 700;
+        color: #15803d;
         margin-bottom: 15px;
         display: flex;
         align-items: center;
         gap: 8px;
       }
-      .label {
-        font-weight: bold;
-        color: #333;
-      }
-      .box {
-        border: 1px solid #ddd;
-        padding: 20px;
-        border-radius: 8px;
-        background: #fafafa;
-        margin-bottom: 15px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      .box p {
-        margin: 10px 0;
-        line-height: 1.5;
-      }
-      .vehicle-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-top: 10px;
-      }
-      .vehicle-item {
-        padding: 8px 0;
-        border-bottom: 1px solid #eee;
-      }
-      .express-eval {
-        background: #f0f8f0;
-        border: 2px solid #28a745;
-        padding: 20px;
-        border-radius: 8px;
-        font-family: 'Courier New', monospace;
-        font-size: 13px;
+      
+      .conclusion-text {
+        color: #166534;
         line-height: 1.8;
-        margin-top: 10px;
+        font-weight: 500;
       }
-      .express-eval .title-eval {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        text-align: center;
-        color: #155724;
-      }
-      .express-eval .price {
-        font-size: 18px;
-        font-weight: bold;
-        color: #28a745;
-      }
+      
       .risco-baixo {
-        background: #d4edda;
-        border: 2px solid #28a745;
-        color: #155724;
-        font-weight: bold;
-        padding: 20px;
-        border-radius: 8px;
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        border: 3px solid #22c55e;
+        color: #15803d;
+        font-weight: 700;
+        padding: 25px;
+        border-radius: 12px;
         text-align: center;
-        font-size: 18px;
-        margin: 15px 0;
+        font-size: 20px;
+        margin: 20px 0;
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
       }
+      
       .risco-medio {
-        background: #fff3cd;
-        border: 2px solid #ffc107;
-        color: #856404;
-        font-weight: bold;
-        padding: 20px;
-        border-radius: 8px;
+        background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        border: 3px solid #f59e0b;
+        color: #92400e;
+        font-weight: 700;
+        padding: 25px;
+        border-radius: 12px;
         text-align: center;
-        font-size: 18px;
-        margin: 15px 0;
+        font-size: 20px;
+        margin: 20px 0;
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
       }
+      
       .risco-alto {
-        background: #f8d7da;
-        border: 2px solid #dc3545;
-        color: #721c24;
-        font-weight: bold;
-        padding: 20px;
-        border-radius: 8px;
+        background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+        border: 3px solid #ef4444;
+        color: #dc2626;
+        font-weight: 700;
+        padding: 25px;
+        border-radius: 12px;
         text-align: center;
-        font-size: 18px;
+        font-size: 20px;
+        margin: 20px 0;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+      }
+      
+      .components-list {
+        background: #fafafa;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 20px;
         margin: 15px 0;
       }
-      .technical-item {
+      
+      .component-item {
         display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
         margin: 12px 0;
-        padding: 8px 0;
-        border-bottom: 1px solid #eee;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        border-left: 4px solid #dc2626;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       }
-      .technical-label {
-        font-weight: bold;
-        width: 180px;
-        color: #555;
-        flex-shrink: 0;
-      }
-      .technical-value {
-        color: #333;
+      
+      .component-name {
+        font-weight: 600;
+        color: #374151;
         flex: 1;
       }
-      .footer {
-        margin-top: 40px;
-        text-align: center;
+      
+      .component-status {
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: 20px;
         font-size: 12px;
-        color: #777;
-        border-top: 1px solid #ddd;
-        padding-top: 20px;
-        page-break-inside: avoid;
-        line-height: 1.6;
+        margin: 0 10px;
       }
-      .footer-logo {
-        font-weight: bold;
-        color: #c10000;
-        margin-bottom: 5px;
+      
+      .status-original {
+        background: #dcfce7;
+        color: #166534;
       }
+      
+      .status-retocado {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      
+      .status-problema {
+        background: #fecaca;
+        color: #dc2626;
+      }
+      
+      .component-conclusion {
+        color: #6b7280;
+        font-size: 13px;
+        flex: 2;
+        text-align: right;
+      }
+      
       .vehicle-images {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
-        margin: 20px 0;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        margin: 25px 0;
       }
+      
       .vehicle-image {
         width: 100%;
-        height: 150px;
+        height: 140px;
         object-fit: cover;
-        border-radius: 8px;
-        border: 1px solid #ddd;
+        border-radius: 12px;
+        border: 2px solid #e5e7eb;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       }
+      
       .image-caption {
         text-align: center;
         font-size: 12px;
-        color: #666;
-        margin-top: 5px;
+        color: #6b7280;
+        margin-top: 8px;
+        font-weight: 500;
       }
-      ul {
-        margin: 10px 0;
-        padding-left: 20px;
+      
+      .footer {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7280;
+        border-top: 2px solid #e5e7eb;
+        padding-top: 25px;
+        page-break-inside: avoid;
         line-height: 1.8;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        padding: 25px;
+        border-radius: 12px;
+        margin-top: 40px;
       }
-      li {
+      
+      .footer-logo {
+        font-weight: 700;
+        color: #dc2626;
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
+      
+      .footer-contact {
         margin: 8px 0;
-        line-height: 1.8;
-        margin-bottom: 12px;
+        font-weight: 500;
       }
-      h2 {
-        color: #c10000;
-        margin: 15px 0 10px 0;
-        line-height: 1.4;
+      
+      .whatsapp-contact {
+        color: #22c55e;
+        font-weight: 600;
+        font-size: 14px;
       }
-      p {
-        line-height: 1.6;
-        margin-bottom: 10px;
+      
+      .express-eval {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        border: 2px solid #22c55e;
+        padding: 25px;
+        border-radius: 12px;
+        font-family: 'Roboto', monospace;
+        font-size: 14px;
+        line-height: 1.9;
+        margin-top: 15px;
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
       }
-      .technical-item {
-        margin-bottom: 15px;
-        line-height: 1.6;
+      
+      .express-eval .title-eval {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #15803d;
       }
-      .technical-label {
-        margin-bottom: 5px;
-        line-height: 1.4;
+      
+      .express-eval .price {
+        font-size: 20px;
+        font-weight: 700;
+        color: #16a34a;
       }
-      .technical-value {
-        line-height: 1.6;
+      
+      .protocol-info {
+        background: #f8fafc;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #dc2626;
+        margin: 15px 0;
       }
+      
+      .protocol-number {
+        font-family: 'Courier New', monospace;
+        font-weight: 600;
+        color: #dc2626;
+      }
+      
       /* Page break utilities */
       .page-break-before {
         page-break-before: always;
@@ -366,87 +600,140 @@ const createHTMLTemplate = (data: ReportData, imageUrls: string[] = [], quilomet
       .no-break {
         page-break-inside: avoid;
       }
+      
+      /* Enhanced spacing */
+      h1, h2, h3, h4 {
+        margin-top: 25px;
+        margin-bottom: 15px;
+        line-height: 1.3;
+      }
+      
+      p {
+        margin-bottom: 12px;
+        line-height: 1.7;
+      }
+      
+      ul {
+        margin: 15px 0;
+        padding-left: 25px;
+        line-height: 1.8;
+      }
+      
+      li {
+        margin: 10px 0;
+        line-height: 1.8;
+      }
     </style>
   </head>
   <body>
 
     <div class="header no-break">
-      <img class="logo" src="${REVIUCAR_LOGO_BASE64}" alt="ReviuCar" />
-      <h1 class="document-title">Laudo Técnico de Avaliação Veicular</h1>
-      <div class="document-info">
-        <strong>Data:</strong> ${currentDate} &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Analista:</strong> IA ReviuCar<br>
-        <strong>Protocolo:</strong> RVC-${Date.now().toString().slice(-6)}
+      <div class="header-left">
+        <img class="logo" src="${REVIUCAR_LOGO_BASE64}" alt="ReviuCar" />
+        <h1 class="document-title">📋 Laudo Técnico de Avaliação Veicular</h1>
+        <div class="document-info">
+          📅 <strong>Data:</strong> ${currentDate} &nbsp;&nbsp;|&nbsp;&nbsp; 
+          🔍 <strong>Analista:</strong> IA ReviuCar
+        </div>
+        <div class="protocol-info">
+          🆔 <strong>Protocolo:</strong> <span class="protocol-number">RVC-${Date.now().toString().slice(-6)}</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <img class="qr-code" src="${QR_CODE_BASE64}" alt="QR Code - reviucar.com.br" />
+        <img class="verified-seal" src="${VERIFIED_SEAL_BASE64}" alt="Vistoriado" />
       </div>
     </div>
 
     <div class="section no-break">
-      <div class="title">🚗 Veículo Avaliado</div>
-      <div class="box">
+      <div class="section-title">
+        <span class="section-icon">🚗</span>
+        Veículo Avaliado
+      </div>
+      <div class="content-box">
         <div class="vehicle-grid">
           <div class="vehicle-item">
-            <span class="label">Modelo:</span> ${data.veiculo.modelo}
+            <span class="vehicle-label">Modelo:</span>
+            <span class="vehicle-value">${data.veiculo.modelo}</span>
           </div>
           <div class="vehicle-item">
-            <span class="label">Marca:</span> ${data.veiculo.marca}
+            <span class="vehicle-label">Marca:</span>
+            <span class="vehicle-value">${data.veiculo.marca}</span>
           </div>
           <div class="vehicle-item">
-            <span class="label">Ano Modelo:</span> ${data.veiculo.ano}
+            <span class="vehicle-label">Ano Modelo:</span>
+            <span class="vehicle-value">${data.veiculo.ano}</span>
           </div>
           ${data.veiculo.cor ? `
           <div class="vehicle-item">
-            <span class="label">Cor:</span> ${data.veiculo.cor}
+            <span class="vehicle-label">Cor:</span>
+            <span class="vehicle-value">${data.veiculo.cor}</span>
           </div>
           ` : ''}
           ${data.veiculo.combustivel ? `
           <div class="vehicle-item">
-            <span class="label">Combustível:</span> ${data.veiculo.combustivel}
+            <span class="vehicle-label">Combustível:</span>
+            <span class="vehicle-value">${data.veiculo.combustivel}</span>
           </div>
           ` : ''}
           ${data.veiculo.chassi ? `
           <div class="vehicle-item">
-            <span class="label">Chassi:</span> ${data.veiculo.chassi}
+            <span class="vehicle-label">Chassi:</span>
+            <span class="vehicle-value">${data.veiculo.chassi}</span>
           </div>
           ` : ''}
           ${data.veiculo.municipio && data.veiculo.uf ? `
           <div class="vehicle-item">
-            <span class="label">Município/UF:</span> ${data.veiculo.municipio}/${data.veiculo.uf}
+            <span class="vehicle-label">Município/UF:</span>
+            <span class="vehicle-value">${data.veiculo.municipio}/${data.veiculo.uf}</span>
           </div>
           ` : ''}
           ${data.veiculo.situacao ? `
           <div class="vehicle-item">
-            <span class="label">Situação:</span> ${data.veiculo.situacao}
+            <span class="vehicle-label">Situação:</span>
+            <span class="vehicle-value">${data.veiculo.situacao}</span>
           </div>
           ` : ''}
           <div class="vehicle-item">
-            <span class="label">Valor FIPE:</span> ${data.veiculo.valor_fipe}
+            <span class="vehicle-label">Valor FIPE:</span>
+            <span class="vehicle-value" style="color: #16a34a; font-weight: 700;">${data.veiculo.valor_fipe}</span>
           </div>
           <div class="vehicle-item">
-            <span class="label">Código FIPE:</span> ${data.veiculo.codigo_fipe}
+            <span class="vehicle-label">Código FIPE:</span>
+            <span class="vehicle-value">${data.veiculo.codigo_fipe}</span>
           </div>
-            ${quilometragem ? `
-            <div class="vehicle-item">
-              <span class="label">Quilometragem:</span> ${parseInt(quilometragem.replace(/\D/g, '')).toLocaleString('pt-BR')} km
-            </div>
-            ` : ''}
+          <div class="vehicle-item">
+            <span class="vehicle-label">Placa:</span>
+            <span class="vehicle-value" style="font-family: 'Courier New', monospace; font-weight: 700; font-size: 16px;">${data.veiculo.placa}</span>
+          </div>
+          ${quilometragem ? `
+          <div class="vehicle-item">
+            <span class="vehicle-label">Quilometragem:</span>
+            <span class="vehicle-value">${parseInt(quilometragem.replace(/\D/g, '')).toLocaleString('pt-BR')} km</span>
+          </div>
+          ` : ''}
         </div>
       </div>
     </div>
 
     ${imageUrls.length > 0 ? `
     <div class="section">
-      <div class="title">📸 Imagens do Veículo</div>
-      <div class="box">
+      <div class="section-title">
+        <span class="section-icon">📸</span>
+        Imagens do Veículo
+      </div>
+      <div class="content-box">
         <div class="vehicle-images">
           ${imageUrls.slice(0, 6).map((url, index) => `
             <div>
               <img src="${url}" alt="Imagem ${index + 1}" class="vehicle-image" />
-              <div class="image-caption">Imagem ${index + 1}</div>
+              <div class="image-caption">📷 Imagem ${index + 1}</div>
             </div>
           `).join('')}
         </div>
         ${imageUrls.length > 6 ? `
-        <p style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
-          E mais ${imageUrls.length - 6} imagem${imageUrls.length - 6 > 1 ? 's' : ''} analisada${imageUrls.length - 6 > 1 ? 's' : ''}...
+        <p style="text-align: center; margin-top: 20px; font-size: 13px; color: #6b7280; font-weight: 500;">
+          📋 E mais ${imageUrls.length - 6} imagem${imageUrls.length - 6 > 1 ? 's' : ''} analisada${imageUrls.length - 6 > 1 ? 's' : ''}...
         </p>
         ` : ''}
       </div>
@@ -454,67 +741,113 @@ const createHTMLTemplate = (data: ReportData, imageUrls: string[] = [], quilomet
     ` : ''}
 
     <div class="section">
-      <div class="title">🔍 Resultados Técnicos</div>
-      <div class="box">
+      <div class="section-title">
+        <span class="section-icon">📊</span>
+        Resultados Técnicos
+      </div>
+      <div class="technical-results">
         <div class="technical-item">
-          <div class="technical-label">Repintura detectada em:</div>
+          <div class="technical-label">🎨 Repintura detectada em:</div>
           <div class="technical-value">${data.sintese.repintura_em}</div>
         </div>
         <div class="technical-item">
-          <div class="technical-label">Massa plástica visível em:</div>
+          <div class="technical-label">🔧 Massa plástica visível em:</div>
           <div class="technical-value">${data.sintese.massa_em}</div>
         </div>
         <div class="technical-item">
-          <div class="technical-label">Alinhamento comprometido:</div>
+          <div class="technical-label">⚖️ Alinhamento comprometido:</div>
           <div class="technical-value">${data.sintese.alinhamento_comprometido}</div>
         </div>
         <div class="technical-item">
-          <div class="technical-label">Vidros/faróis trocados:</div>
+          <div class="technical-label">🔍 Vidros/faróis trocados:</div>
           <div class="technical-value">${data.sintese.vidros_trocados}</div>
         </div>
         <div class="technical-item">
-          <div class="technical-label">Estrutura inferior:</div>
+          <div class="technical-label">🏗️ Estrutura inferior:</div>
           <div class="technical-value">${data.sintese.estrutura_inferior}</div>
         </div>
       </div>
     </div>
 
     <div class="section">
-      <div class="title">🧾 Conclusão Técnica</div>
-      <div class="box">
-        <p><strong>Resumo da Análise:</strong></p>
-        <p>${data.sintese.resumo}</p>
+      <div class="section-title">
+        <span class="section-icon">📌</span>
+        Conclusão Técnica
+      </div>
+      <div class="conclusion-box">
+        <div class="conclusion-title">
+          🧾 Resumo da Análise
+        </div>
+        <div class="conclusion-text">
+          ${data.sintese.resumo}
+        </div>
       </div>
     </div>
 
     <div class="section">
-      <div class="title">⚠️ Classificação de Risco</div>
+      <div class="section-title">
+        <span class="section-icon">⚠️</span>
+        Classificação de Risco
+      </div>
       <div class="${riskClass}">
-        CLASSIFICAÇÃO DE RISCO: ${riskLevel}
+        ${riskIcon} CLASSIFICAÇÃO DE RISCO: ${riskLevel}
       </div>
     </div>
 
     <div class="section">
-      <div class="title">📎 Observações Finais</div>
-      <div class="box">
+      <div class="section-title">
+        <span class="section-icon">🛠️</span>
+        Observações Finais
+      </div>
+      <div class="content-box">
         ${data.componentes.length > 0 ? `
-          <h2>Componentes Analisados:</h2>
-          <ul>
-            ${data.componentes.map(comp => `
-              <li><strong>${comp.nome}:</strong> ${comp.estado} - ${comp.conclusao}</li>
-            `).join('')}
-          </ul>
+          <h3 style="color: #374151; font-weight: 600; margin-bottom: 15px;">🔍 Componentes Analisados:</h3>
+          <div class="components-list">
+            ${data.componentes.map(comp => {
+              let statusClass = 'status-original';
+              if (comp.estado.includes('Retocado') || comp.estado.includes('Repintura')) {
+                statusClass = 'status-retocado';
+              } else if (comp.estado.includes('Massa') || comp.estado.includes('Troca')) {
+                statusClass = 'status-problema';
+              }
+              
+              return `
+                <div class="component-item">
+                  <div class="component-name">${comp.nome}</div>
+                  <div class="component-status ${statusClass}">${comp.estado}</div>
+                  <div class="component-conclusion">${comp.conclusao}</div>
+                </div>
+              `;
+            }).join('')}
+          </div>
         ` : ''}
-        <ul>
-          <li>Este laudo técnico foi gerado com base em imagens e/ou descrição do veículo.</li>
-          <li>Laudo automatizado pela IA ReviuCar conforme protocolo técnico padrão.</li>
-        </ul>
+        
+        <div style="margin-top: 25px;">
+          <h4 style="color: #374151; font-weight: 600; margin-bottom: 12px;">📋 Informações Importantes:</h4>
+          <ul style="color: #4b5563; line-height: 1.8;">
+            <li>✅ Este laudo técnico foi gerado com base em imagens e análise por inteligência artificial</li>
+            <li>🤖 Laudo automatizado pela IA ReviuCar conforme protocolo técnico padrão</li>
+            <li>📊 Análise realizada seguindo metodologia técnica especializada</li>
+            <li>🔒 Documento com validade técnica para avaliação veicular</li>
+          </ul>
+        </div>
       </div>
     </div>
 
     <div class="footer">
-      ReviuCar – Avaliação Inteligente de Veículos <br />
-      🌐 www.reviucar.com.br &nbsp;&nbsp; | &nbsp;&nbsp; ✉️ contato@reviucar.com
+      <div class="footer-logo">ReviuCar – Avaliação Inteligente de Veículos</div>
+      <div class="footer-contact">
+        🌐 <strong>Site:</strong> www.reviucar.com.br
+      </div>
+      <div class="footer-contact">
+        ✉️ <strong>Email:</strong> contato@reviucar.com.br
+      </div>
+      <div class="footer-contact whatsapp-contact">
+        📱 <strong>WhatsApp:</strong> (61) 98187-5542
+      </div>
+      <div style="margin-top: 15px; font-size: 12px; color: #9ca3af;">
+        Documento gerado automaticamente em ${currentDate} • Protocolo: RVC-${Date.now().toString().slice(-6)}
+      </div>
     </div>
   </body>
 </html>`;
@@ -550,7 +883,7 @@ export const generatePDF = async (reportData: ReportData, imageUrls: string[] = 
     document.body.appendChild(tempDiv);
 
     // Wait for fonts and images to load
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Convert HTML to canvas with better settings for multi-page content
     const canvas = await html2canvas(tempDiv, {
