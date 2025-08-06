@@ -156,22 +156,22 @@ export const Landing = () => {
         </div>
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center relative z-10">
-            <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-6xl font-heading font-bold text-foreground mb-4 md:mb-6 leading-tight px-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-heading font-bold text-foreground mb-4 md:mb-6 leading-tight px-2">
               Evite prejuízo ao comprar carros usados. Gere laudos completos com IA em 1 minuto
             </h1>
             
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
               Com 3 fotos, placa e quilometragem, você recebe: avaliação visual, valor justo pela FIPE, cálculo de desconto e envio direto para o WhatsApp do cliente.
             </p>
 
             <Button 
               onClick={handleStartFree}
-              className="w-full sm:w-auto text-sm sm:text-base md:text-lg lg:text-xl px-4 sm:px-6 md:px-8 lg:px-12 py-3 sm:py-4 md:py-6 lg:py-8 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-xl mx-2 sm:mx-0"
+              className="w-full sm:w-auto text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-8 md:px-10 lg:px-12 py-4 sm:py-5 md:py-6 lg:py-8 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-xl mx-2 sm:mx-0 font-semibold"
             >
               👉 Comece sua análise grátis agora mesmo!
             </Button>
 
-            <p className="text-xs sm:text-sm text-muted-foreground mt-3 md:mt-4 px-2">
+            <p className="text-sm sm:text-base text-muted-foreground mt-4 md:mt-6 px-2 font-medium">
               📌 100% gratuito para testar — sem cartão de crédito
             </p>
           </div>
@@ -190,13 +190,13 @@ export const Landing = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 px-2 md:px-0">
               {steps.map((step, index) => (
-                <Card key={index} className="border-0 shadow-lg bg-background/60 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-3 sm:p-4 md:p-6">
-                    <div className="text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3 md:mb-4">{step.number}</div>
-                    <h3 className="font-semibold text-foreground mb-2 text-sm sm:text-base md:text-lg">
+                <Card key={index} className="border-0 shadow-lg bg-background/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
+                  <CardContent className="p-4 sm:p-5 md:p-6">
+                    <div className="text-2xl sm:text-3xl md:text-4xl mb-3 sm:mb-4 md:mb-5">{step.number}</div>
+                    <h3 className="font-semibold text-foreground mb-2 text-base sm:text-lg md:text-xl">
                       {step.title}
                     </h3>
-                    <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
+                    <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
                       {step.description}
                     </p>
                   </CardContent>
@@ -219,15 +219,15 @@ export const Landing = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 px-2 md:px-0">
               {benefits.map((benefit, index) => (
-                <Card key={index} className="border-0 shadow-lg bg-background/60 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-3 sm:p-4 md:p-6 text-center">
-                    <div className="mb-2 sm:mb-3 md:mb-4 p-2 md:p-3 bg-primary/10 rounded-full w-fit mx-auto">
-                      <benefit.icon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary" />
+                <Card key={index} className="border-0 shadow-lg bg-background/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
+                  <CardContent className="p-4 sm:p-5 md:p-6 text-center">
+                    <div className="mb-3 sm:mb-4 md:mb-5 p-3 md:p-4 bg-primary/10 rounded-full w-fit mx-auto">
+                      <benefit.icon className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-primary" />
                     </div>
-                    <h3 className="font-semibold text-foreground mb-2 text-sm sm:text-base md:text-lg">
+                    <h3 className="font-semibold text-foreground mb-2 text-base sm:text-lg md:text-xl">
                       {benefit.title}
                     </h3>
-                    <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
+                    <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
                       {benefit.description}
                     </p>
                   </CardContent>
@@ -451,18 +451,18 @@ export const Landing = () => {
                   {testimonials.map((testimonial, index) => (
                     <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
                       <Card className="border-0 shadow-xl bg-gradient-to-r from-blue-50 to-indigo-50 h-full">
-                        <CardContent className="p-4 sm:p-6 md:p-8 flex flex-col h-full">
-                          <div className="text-2xl sm:text-3xl md:text-4xl mb-3 md:mb-4 text-center">💬</div>
-                          <blockquote className="text-sm sm:text-base md:text-lg font-medium text-foreground mb-4 md:mb-6 italic flex-grow leading-relaxed">
+                        <CardContent className="p-5 sm:p-6 md:p-8 flex flex-col h-full">
+                          <div className="text-3xl sm:text-4xl md:text-5xl mb-4 md:mb-5 text-center">💬</div>
+                          <blockquote className="text-base sm:text-lg md:text-xl font-medium text-foreground mb-5 md:mb-6 italic flex-grow leading-relaxed">
                             "{testimonial.quote}"
                           </blockquote>
                           <div className="flex items-center justify-center gap-3 mt-auto">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                              <span className="text-white font-bold text-xs sm:text-sm md:text-base">{testimonial.initials}</span>
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                              <span className="text-white font-bold text-sm sm:text-base md:text-lg">{testimonial.initials}</span>
                             </div>
                             <div className="text-left">
-                              <p className="font-semibold text-foreground text-xs sm:text-sm md:text-base">{testimonial.name}</p>
-                              <p className="text-xs md:text-sm text-muted-foreground">{testimonial.role}</p>
+                              <p className="font-semibold text-foreground text-sm sm:text-base md:text-lg">{testimonial.name}</p>
+                              <p className="text-xs sm:text-sm md:text-base text-muted-foreground">{testimonial.role}</p>
                             </div>
                           </div>
                         </CardContent>
@@ -496,7 +496,7 @@ export const Landing = () => {
             <Button 
               onClick={handleStartFree}
               size="lg"
-              className="w-full sm:w-auto text-sm sm:text-base md:text-lg lg:text-xl px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-6 md:py-8 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-xl mx-2 sm:mx-0"
+              className="w-full sm:w-auto text-lg sm:text-xl md:text-2xl lg:text-3xl px-8 sm:px-10 md:px-12 lg:px-16 py-6 sm:py-7 md:py-8 lg:py-10 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-xl mx-2 sm:mx-0 font-bold"
             >
               👉 Comece sua análise grátis agora mesmo!
             </Button>
@@ -547,6 +547,7 @@ export const Landing = () => {
                 <ul className="space-y-2 text-xs sm:text-sm md:text-base text-muted-foreground">
                   <li>📱 WhatsApp: (61) 98187-5542</li>
                   <li>✉️ contato@reviucar.com.br</li>
+                  <li>🌐 www.reviucar.com.br</li>
                 </ul>
               </div>
             </div>
@@ -561,17 +562,17 @@ export const Landing = () => {
       </footer>
 
       {/* WhatsApp Support Bubble */}
-      <div className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-6 md:right-6 z-50">
+      <div className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 md:bottom-6 md:right-6 z-50">
         <a
           href="https://wa.me/5561981875542"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-green-500 hover:bg-green-600 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group animate-pulse hover:animate-none"
+          className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 bg-green-500 hover:bg-green-600 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group animate-pulse hover:animate-none"
         >
-          <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
           </svg>
-          <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse"></div>
+          <div className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 w-3 h-3 sm:w-3.5 sm:h-3.5 bg-red-500 rounded-full animate-pulse"></div>
         </a>
       </div>
     </div>

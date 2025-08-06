@@ -99,9 +99,9 @@ export const ReviuCarLogo = ({ size = "md", showText = true, className = "" }: L
       
       {/* Text logo */}
       {showText && (
-        <span className={`font-heading font-semibold tracking-tight ${textSizes[size]} flex items-center`}>
+        <span className={`font-heading font-bold tracking-tight ${textSizes[size]} flex items-center`}>
           <span className="text-primary font-bold">R</span>
-          <span className="text-foreground">eviucar</span>
+          <span className="text-foreground">eviuCar</span>
         </span>
       )}
     </div>
