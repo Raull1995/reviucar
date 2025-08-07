@@ -147,20 +147,34 @@ export const Landing = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-8 md:py-12 lg:py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
+      <section className="py-8 md:py-12 lg:py-20 relative overflow-hidden">
+        {/* Car background image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')`,
+            }}
+          />
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-blue-600/20"></div>
+        </div>
+        
         {/* Background decorative elements */}
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-5 z-10">
           <div className="absolute top-20 left-10 w-32 h-32 bg-primary rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-indigo-400 rounded-full blur-3xl"></div>
         </div>
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-4xl mx-auto text-center relative z-10">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-heading font-bold text-foreground mb-4 md:mb-6 leading-tight px-2">
+        
+        <div className="container mx-auto px-4 md:px-6 relative z-20">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-heading font-bold text-white mb-4 md:mb-6 leading-tight px-2 drop-shadow-lg">
               Evite prejuízo ao comprar carros usados. Gere laudos completos com IA em 1 minuto
             </h1>
             
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed px-2 drop-shadow-md">
               Com 3 fotos, placa e quilometragem, você recebe: avaliação visual, valor justo pela FIPE, cálculo de desconto e envio direto para o WhatsApp do cliente.
             </p>
 
@@ -171,7 +185,7 @@ export const Landing = () => {
               👉 Comece sua análise grátis agora mesmo!
             </Button>
 
-            <p className="text-sm sm:text-base text-muted-foreground mt-4 md:mt-6 px-2 font-medium">
+            <p className="text-sm sm:text-base text-white/80 mt-4 md:mt-6 px-2 font-medium drop-shadow-md">
               📌 100% gratuito para testar — sem cartão de crédito
             </p>
           </div>
