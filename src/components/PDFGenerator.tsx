@@ -35,56 +35,23 @@ interface ReportData {
   };
 }
 
-// Enhanced ReviuCar logo with QR code placeholder
+// Enhanced ReviuCar logo SVG
 const REVIUCAR_LOGO_BASE64 = `data:image/svg+xml;base64,${btoa(`
-<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+<svg width="300" height="100" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#991B1B;stop-opacity:1" />
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    <filter id="logoShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="4" flood-opacity="0.3"/>
     </filter>
   </defs>
-  <rect width="200" height="80" fill="url(#gradient)" rx="12" filter="url(#shadow)"/>
-  <circle cx="35" cy="40" r="18" fill="white"/>
-  <text x="30" y="48" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#DC2626">R</text>
-  <text x="60" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="white">REVIUCAR</text>
-  <text x="60" y="52" font-family="Arial, sans-serif" font-size="12" fill="white">Avaliação Inteligente</text>
-</svg>
-`)}`;
-
-// QR Code for website access
-const QR_CODE_BASE64 = `data:image/svg+xml;base64,${btoa(`
-<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-  <rect width="80" height="80" fill="white" stroke="#333" stroke-width="1"/>
-  <g fill="#333">
-    <!-- QR Code pattern simulation -->
-    <rect x="8" y="8" width="16" height="16"/>
-    <rect x="56" y="8" width="16" height="16"/>
-    <rect x="8" y="56" width="16" height="16"/>
-    <rect x="32" y="32" width="16" height="16"/>
-    <!-- Additional QR pattern elements -->
-    <rect x="12" y="12" width="8" height="8" fill="white"/>
-    <rect x="60" y="12" width="8" height="8" fill="white"/>
-    <rect x="12" y="60" width="8" height="8" fill="white"/>
-    <rect x="36" y="36" width="8" height="8" fill="white"/>
-    <!-- Random QR pattern -->
-    <rect x="28" y="8" width="4" height="4"/>
-    <rect x="36" y="8" width="4" height="4"/>
-    <rect x="44" y="8" width="4" height="4"/>
-    <rect x="8" y="28" width="4" height="4"/>
-    <rect x="8" y="36" width="4" height="4"/>
-    <rect x="8" y="44" width="4" height="4"/>
-    <rect x="28" y="72" width="4" height="4"/>
-    <rect x="36" y="72" width="4" height="4"/>
-    <rect x="44" y="72" width="4" height="4"/>
-    <rect x="72" y="28" width="4" height="4"/>
-    <rect x="72" y="36" width="4" height="4"/>
-    <rect x="72" y="44" width="4" height="4"/>
-  </g>
-  <text x="40" y="92" text-anchor="middle" font-size="8" fill="#666">reviucar.com.br</text>
+  <rect width="300" height="100" fill="url(#logoGradient)" rx="15" filter="url(#logoShadow)"/>
+  <circle cx="50" cy="50" r="25" fill="white"/>
+  <text x="42" y="60" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#DC2626">R</text>
+  <text x="85" y="42" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white">REVIUCAR</text>
+  <text x="85" y="65" font-family="Arial, sans-serif" font-size="16" fill="white">Avaliação Inteligente</text>
 </svg>
 `)}`;
 
@@ -114,15 +81,18 @@ const createHTMLTemplate = (data: ReportData, imageUrls: string[] = [], quilomet
   // Determine risk level and styling
   let riskLevel = 'MÉDIO';
   let riskClass = 'risco-medio';
+  let riskIcon = '⚠️';
   
   if (data.sintese.conclusao_final === 'Veículo sem indícios de colisão' || 
       data.sintese.conclusao_final === 'Reparo estético') {
     riskLevel = 'BAIXO';
     riskClass = 'risco-baixo';
+    riskIcon = '✅';
   } else if (data.sintese.conclusao_final === 'Batida significativa' || 
              data.sintese.conclusao_final === 'Estrutura comprometida') {
     riskLevel = 'ALTO';
     riskClass = 'risco-alto';
+    riskIcon = '❌';
   }
 
   return `
@@ -132,336 +102,561 @@ const createHTMLTemplate = (data: ReportData, imageUrls: string[] = [], quilomet
   <meta charset="UTF-8">
   <title>Laudo Técnico ReviuCar</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      color: #111;
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      color: #1a1a1a;
       line-height: 1.6;
+      background: #ffffff;
     }
 
     .page {
       page-break-after: always;
-    }
-
-    h1, h2, h3 {
-      color: #333;
-    }
-
-    .header {
-      text-align: center;
-      border-bottom: 2px solid #444;
-      padding-bottom: 10px;
-      margin-bottom: 30px;
+      min-height: 100vh;
+      padding: 40px;
       position: relative;
     }
 
-    .header-content {
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* Header Styles */
+    .header {
+      border-bottom: 3px solid #DC2626;
+      padding-bottom: 20px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .header-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
+      align-items: flex-start;
+      margin-bottom: 30px;
     }
 
     .logo-section {
       flex: 1;
-      text-align: left;
     }
 
-    .qr-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+    .logo {
+      width: 280px;
+      height: auto;
+      margin-bottom: 15px;
     }
 
-    .qr-code {
-      width: 80px;
-      height: 80px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
+    .document-info {
+      text-align: right;
+      color: #666;
+      font-size: 14px;
     }
 
+    .document-title {
+      text-align: center;
+      color: #DC2626;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 20px 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .protocol-badge {
+      background: linear-gradient(135deg, #DC2626, #991B1B);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      margin: 20px auto;
+      width: fit-content;
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    }
+
+    /* Table Styles */
     .info-table, .result-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 25px;
+      margin: 25px 0;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
 
-    .info-table td, .result-table td {
-      border: 1px solid #ccc;
-      padding: 12px;
-      vertical-align: top;
+    .info-table th, .info-table td,
+    .result-table th, .result-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid #f0f0f0;
     }
 
-    .info-table td:first-child, .result-table td:first-child {
-      background-color: #f8f9fa;
-      font-weight: bold;
-    }
-
-    .result-table td {
+    .info-table th, .result-table th {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      font-weight: 600;
+      color: #495057;
+      font-size: 14px;
       text-transform: uppercase;
-      font-weight: bold;
+      letter-spacing: 0.5px;
     }
 
-    .images {
+    .info-table td:first-child,
+    .result-table td:first-child {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #495057;
+      width: 40%;
+    }
+
+    .info-table td:last-child,
+    .result-table td:last-child {
+      font-weight: 500;
+      color: #212529;
+    }
+
+    /* Section Headers */
+    .section-header {
+      background: linear-gradient(135deg, #DC2626, #991B1B);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 30px 0 20px 0;
       display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin: 20px 0;
-      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
+    }
+
+    /* Images Grid */
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
     }
 
     .image-container {
-      flex: 1;
-      min-width: 200px;
-      max-width: 300px;
-      text-align: center;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
     }
 
-    .images img {
+    .image-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .images-grid img {
       width: 100%;
       height: 200px;
       object-fit: cover;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-bottom: 3px solid #DC2626;
     }
 
     .image-caption {
-      font-size: 12px;
-      color: #666;
-      margin-top: 5px;
-    }
-
-    .footer {
-      font-size: 12px;
-      color: #666;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #495057;
       text-align: center;
-      margin-top: 30px;
-      border-top: 1px solid #ddd;
-      padding-top: 20px;
+      background: #f8f9fa;
     }
 
-    .selo {
-      color: green;
-      font-weight: bold;
+    /* Risk Classification */
+    .risk-classification {
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      margin: 30px 0;
       font-size: 20px;
-      text-align: center;
-      margin: 20px 0;
-      background-color: #d4edda;
-      padding: 10px;
-      border-radius: 8px;
-      border: 2px solid #28a745;
+      font-weight: 700;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.1);
     }
 
     .risco-baixo {
-      background-color: #d4edda;
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
       color: #155724;
-      font-weight: bold;
-      padding: 15px;
-      text-align: center;
-      border: 2px solid #c3e6cb;
-      border-radius: 8px;
-      font-size: 18px;
-      margin: 20px 0;
+      border: 3px solid #28a745;
     }
 
     .risco-medio {
-      background-color: #fff3cd;
+      background: linear-gradient(135deg, #fff3cd, #ffeaa7);
       color: #856404;
-      font-weight: bold;
-      padding: 15px;
-      text-align: center;
-      border: 2px solid #ffeaa7;
-      border-radius: 8px;
-      font-size: 18px;
-      margin: 20px 0;
+      border: 3px solid #ffc107;
     }
 
     .risco-alto {
-      background-color: #f8d7da;
+      background: linear-gradient(135deg, #f8d7da, #f5c6cb);
       color: #721c24;
-      font-weight: bold;
-      padding: 15px;
-      text-align: center;
-      border: 2px solid #f5c6cb;
-      border-radius: 8px;
-      font-size: 18px;
-      margin: 20px 0;
+      border: 3px solid #dc3545;
     }
 
+    /* Components Section */
     .components-section {
-      background-color: #f8f9fa;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 20px 0;
+      background: #f8f9fa;
+      padding: 25px;
+      border-radius: 15px;
+      margin: 30px 0;
+      border-left: 5px solid #DC2626;
     }
 
     .component-item {
-      background-color: white;
-      padding: 15px;
-      margin: 10px 0;
-      border-left: 4px solid #dc3545;
-      border-radius: 4px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      background: white;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border-left: 4px solid #DC2626;
     }
 
     .component-name {
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 5px;
+      font-weight: 600;
+      color: #212529;
+      font-size: 16px;
+      margin-bottom: 8px;
     }
 
     .component-status {
       display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
+      padding: 6px 12px;
+      border-radius: 20px;
       font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 5px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .status-original {
-      background-color: #d4edda;
+      background: #d4edda;
       color: #155724;
     }
 
     .status-retocado {
-      background-color: #fff3cd;
+      background: #fff3cd;
       color: #856404;
     }
 
     .status-problema {
-      background-color: #f8d7da;
+      background: #f8d7da;
       color: #721c24;
     }
 
-    .protocol-info {
-      background-color: #e9ecef;
-      padding: 10px;
-      border-radius: 5px;
-      margin: 10px 0;
-      font-family: monospace;
+    .component-conclusion {
+      color: #6c757d;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
+    /* Conclusion Box */
     .conclusion-box {
-      background-color: #f0f9ff;
+      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
       border: 2px solid #0ea5e9;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 25px;
+      border-radius: 15px;
+      margin: 30px 0;
+    }
+
+    .conclusion-title {
+      color: #0369a1;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .conclusion-text {
+      color: #374151;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    /* Technical Summary */
+    .technical-summary {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 15px;
+      overflow: hidden;
+      margin: 30px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .summary-header {
+      background: linear-gradient(135deg, #374151, #1f2937);
+      color: white;
+      padding: 20px 25px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .summary-content {
+      padding: 25px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
       margin: 20px 0;
     }
 
-    .technical-summary {
-      background-color: #f8f9fa;
-      padding: 20px;
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: #f8f9fa;
       border-radius: 8px;
-      margin: 20px 0;
-      border-left: 5px solid #dc3545;
+      border-left: 4px solid #DC2626;
+    }
+
+    .summary-label {
+      font-weight: 500;
+      color: #495057;
+    }
+
+    .summary-value {
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 14px;
+    }
+
+    .value-ok {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .value-problem {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .value-warning {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    /* Footer */
+    .footer {
+      position: fixed;
+      bottom: 30px;
+      left: 40px;
+      right: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: #6c757d;
+      border-top: 1px solid #dee2e6;
+      padding-top: 15px;
+      background: white;
+    }
+
+    .footer-logo {
+      font-weight: 600;
+      color: #DC2626;
+      margin-bottom: 5px;
+    }
+
+    .footer-contact {
+      color: #495057;
+      margin-bottom: 3px;
+    }
+
+    .footer-protocol {
+      font-size: 11px;
+      color: #adb5bd;
+    }
+
+    /* Page Numbers */
+    .page-number {
+      position: fixed;
+      bottom: 15px;
+      right: 40px;
+      font-size: 12px;
+      color: #6c757d;
+      background: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      border: 1px solid #dee2e6;
+    }
+
+    /* Watermark */
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 120px;
+      color: rgba(220, 38, 38, 0.03);
+      font-weight: 900;
+      z-index: -1;
+      pointer-events: none;
     }
 
     @media print {
-      body { margin: 20px; }
-      .page { page-break-after: always; }
+      body { margin: 0; }
+      .page { 
+        page-break-after: always;
+        margin: 0;
+        padding: 40px;
+      }
+      .page:last-child {
+        page-break-after: avoid;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="watermark">REVIUCAR</div>
 
-  <!-- Página 1 -->
+  <!-- Página 1 - Capa e Dados do Veículo -->
   <div class="page">
     <div class="header">
-      <div class="header-content">
+      <div class="header-top">
         <div class="logo-section">
-          <img src="${REVIUCAR_LOGO_BASE64}" alt="ReviuCar" style="width: 200px; margin-bottom: 10px;" />
+          <img src="${REVIUCAR_LOGO_BASE64}" alt="ReviuCar" class="logo" />
         </div>
-        <div class="qr-section">
-          <img class="qr-code" src="${QR_CODE_BASE64}" alt="QR Code - reviucar.com.br" />
-          <small>reviucar.com.br</small>
+        <div class="document-info">
+          <div><strong>Data de Emissão:</strong> ${currentDate}</div>
+          <div><strong>Protocolo:</strong> ${protocolNumber}</div>
+          <div><strong>Validade:</strong> 30 dias</div>
         </div>
       </div>
-      <h1>LAUDO TÉCNICO DE AVALIAÇÃO VEICULAR</h1>
-      <p>Emitido em: <strong>${currentDate}</strong> • Protocolo: <strong>${protocolNumber}</strong></p>
-      <div class="selo">✔ VISTORIADO</div>
+      <h1 class="document-title">Laudo Técnico de Avaliação Veicular</h1>
+      <div class="protocol-badge">✔ DOCUMENTO TÉCNICO VERIFICADO</div>
     </div>
 
-    <h2>🚗 Informações do Veículo</h2>
+    <div class="section-header">
+      🚗 Identificação do Veículo
+    </div>
+    
     <table class="info-table">
-      <tr><td><b>Modelo:</b></td><td>${data.veiculo.modelo}</td></tr>
-      <tr><td><b>Marca:</b></td><td>${data.veiculo.marca}</td></tr>
-      <tr><td><b>Ano/Modelo:</b></td><td>${data.veiculo.ano}</td></tr>
-      <tr><td><b>Cor:</b></td><td>${data.veiculo.cor || 'N/A'}</td></tr>
-      <tr><td><b>Combustível:</b></td><td>${data.veiculo.combustivel || 'N/A'}</td></tr>
-      <tr><td><b>Chassi:</b></td><td>${data.veiculo.chassi || 'N/A'}</td></tr>
-      <tr><td><b>Placa:</b></td><td>${data.veiculo.placa}</td></tr>
-      <tr><td><b>Município/UF:</b></td><td>${data.veiculo.municipio || 'N/A'} / ${data.veiculo.uf || 'N/A'}</td></tr>
-      <tr><td><b>Valor FIPE:</b></td><td style="color: #28a745; font-weight: bold;">${data.veiculo.valor_fipe}</td></tr>
-      <tr><td><b>Código FIPE:</b></td><td>${data.veiculo.codigo_fipe}</td></tr>
-      <tr><td><b>Situação:</b></td><td>${data.veiculo.situacao || 'N/A'}</td></tr>
-      ${quilometragem ? `<tr><td><b>Quilometragem:</b></td><td>${parseInt(quilometragem.replace(/\D/g, '')).toLocaleString('pt-BR')} km</td></tr>` : ''}
+      <tbody>
+        <tr><td>Modelo</td><td>${data.veiculo.modelo}</td></tr>
+        <tr><td>Marca</td><td>${data.veiculo.marca}</td></tr>
+        <tr><td>Ano/Modelo</td><td>${data.veiculo.ano}</td></tr>
+        <tr><td>Cor</td><td>${data.veiculo.cor || 'Não informado'}</td></tr>
+        <tr><td>Combustível</td><td>${data.veiculo.combustivel || 'Não informado'}</td></tr>
+        <tr><td>Chassi</td><td>${data.veiculo.chassi || 'Não informado'}</td></tr>
+        <tr><td>Placa</td><td style="font-family: monospace; font-weight: bold; font-size: 16px;">${data.veiculo.placa}</td></tr>
+        <tr><td>Município/UF</td><td>${data.veiculo.municipio || 'N/A'} / ${data.veiculo.uf || 'N/A'}</td></tr>
+        <tr><td>Valor FIPE</td><td style="color: #28a745; font-weight: bold; font-size: 16px;">${data.veiculo.valor_fipe}</td></tr>
+        <tr><td>Código FIPE</td><td style="font-family: monospace;">${data.veiculo.codigo_fipe}</td></tr>
+        <tr><td>Situação</td><td>${data.veiculo.situacao || 'Regular'}</td></tr>
+        ${quilometragem ? `<tr><td>Quilometragem</td><td style="font-weight: bold;">${parseInt(quilometragem.replace(/\D/g, '')).toLocaleString('pt-BR')} km</td></tr>` : ''}
+      </tbody>
     </table>
 
-    <div class="protocol-info">
-      <strong>Protocolo de Análise:</strong> ${protocolNumber} | <strong>Data:</strong> ${currentDate}
+    <div class="risk-classification ${riskClass}">
+      ${riskIcon} CLASSIFICAÇÃO DE RISCO: ${riskLevel}
     </div>
+
+    <div class="page-number">Página 1</div>
   </div>
 
-  <!-- Página 2 -->
+  <!-- Página 2 - Análise Visual e Resultados -->
   <div class="page">
-    <div class="header">
-      <h2>📸 Análise Visual</h2>
-      <p>Imagens coletadas para verificação estrutural</p>
+    <div class="section-header">
+      📸 Análise Visual Técnica
     </div>
 
     ${imageUrls.length > 0 ? `
-    <div class="images">
+    <div class="images-grid">
       ${imageUrls.slice(0, 6).map((url, index) => `
         <div class="image-container">
-          <img src="${url}" alt="Imagem ${index + 1}" />
-          <div class="image-caption">Imagem ${index + 1}</div>
+          <img src="${url}" alt="Análise ${index + 1}" />
+          <div class="image-caption">Imagem ${index + 1} - Análise Técnica</div>
         </div>
       `).join('')}
     </div>
     ${imageUrls.length > 6 ? `
-    <p style="text-align: center; margin-top: 20px; font-size: 14px; color: #666;">
-      E mais ${imageUrls.length - 6} imagem${imageUrls.length - 6 > 1 ? 's' : ''} analisada${imageUrls.length - 6 > 1 ? 's' : ''}...
-    </p>
+    <div style="text-align: center; margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+      <strong>+ ${imageUrls.length - 6} imagem${imageUrls.length - 6 > 1 ? 's' : ''} adicional${imageUrls.length - 6 > 1 ? 'is' : ''} analisada${imageUrls.length - 6 > 1 ? 's' : ''}</strong>
+    </div>
     ` : ''}
     ` : `
-    <p style="text-align: center; color: #666; font-style: italic;">
-      Nenhuma imagem disponível para esta análise
-    </p>
+    <div style="text-align: center; padding: 40px; background: #f8f9fa; border-radius: 15px; color: #6c757d;">
+      <div style="font-size: 48px; margin-bottom: 15px;">📷</div>
+      <p style="font-size: 16px; font-weight: 500;">Nenhuma imagem disponível para esta análise</p>
+    </div>
     `}
 
-    <h3>📊 Resultado Técnico</h3>
-    <table class="result-table">
-      <tr><td>Repintura</td><td style="color: ${data.sintese.repintura_em === 'nenhuma' ? '#28a745' : '#dc3545'};">${data.sintese.repintura_em}</td></tr>
-      <tr><td>Massa Plástica</td><td style="color: ${data.sintese.massa_em === 'nenhuma' ? '#28a745' : '#dc3545'};">${data.sintese.massa_em}</td></tr>
-      <tr><td>Alinhamento Comprometido</td><td style="color: ${data.sintese.alinhamento_comprometido === 'nenhuma' ? '#28a745' : '#dc3545'};">${data.sintese.alinhamento_comprometido}</td></tr>
-      <tr><td>Vidros/Faróis Trocados</td><td style="color: ${data.sintese.vidros_trocados === 'nenhuma' ? '#28a745' : '#dc3545'};">${data.sintese.vidros_trocados}</td></tr>
-      <tr><td>Estrutura Inferior</td><td style="color: ${data.sintese.estrutura_inferior === 'OK' ? '#28a745' : '#dc3545'};">${data.sintese.estrutura_inferior}</td></tr>
-    </table>
+    <div class="section-header">
+      📊 Resultados da Análise Técnica
+    </div>
+
+    <div class="technical-summary">
+      <div class="summary-header">
+        🔍 Verificação Técnica Detalhada
+      </div>
+      <div class="summary-content">
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span class="summary-label">Repintura Detectada</span>
+            <span class="summary-value ${data.sintese.repintura_em === 'nenhuma' ? 'value-ok' : 'value-problem'}">
+              ${data.sintese.repintura_em.toUpperCase()}
+            </span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Massa Plástica</span>
+            <span class="summary-value ${data.sintese.massa_em === 'nenhuma' ? 'value-ok' : 'value-problem'}">
+              ${data.sintese.massa_em.toUpperCase()}
+            </span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Alinhamento</span>
+            <span class="summary-value ${data.sintese.alinhamento_comprometido === 'nenhuma' ? 'value-ok' : 'value-problem'}">
+              ${data.sintese.alinhamento_comprometido.toUpperCase()}
+            </span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Vidros/Faróis</span>
+            <span class="summary-value ${data.sintese.vidros_trocados === 'nenhuma' ? 'value-ok' : 'value-warning'}">
+              ${data.sintese.vidros_trocados.toUpperCase()}
+            </span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Estrutura Inferior</span>
+            <span class="summary-value ${data.sintese.estrutura_inferior === 'OK' ? 'value-ok' : 'value-problem'}">
+              ${data.sintese.estrutura_inferior.toUpperCase()}
+            </span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Estrutura Geral</span>
+            <span class="summary-value ${data.sintese.estrutura_ok ? 'value-ok' : 'value-problem'}">
+              ${data.sintese.estrutura_ok ? 'PRESERVADA' : 'COMPROMETIDA'}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-number">Página 2</div>
   </div>
 
-  <!-- Página 3 -->
+  <!-- Página 3 - Componentes e Conclusão -->
   <div class="page">
-    <div class="header">
-      <h2>📌 Conclusão Técnica</h2>
-    </div>
-
-    <div class="${riskClass}">
-      ${riskLevel === 'BAIXO' ? '✅' : riskLevel === 'MÉDIO' ? '⚠️' : '❌'} 
-      Classificação de Risco: ${riskLevel}
-    </div>
-
-    <div class="conclusion-box">
-      <h3>Resumo da Análise</h3>
-      <p><strong>Resumo:</strong> ${data.sintese.resumo}</p>
-      <p><strong>Conclusão Final:</strong> ${data.sintese.conclusao_final}</p>
-    </div>
-
     ${data.componentes.length > 0 ? `
-    <h3>🛠️ Componentes Analisados</h3>
+    <div class="section-header">
+      🛠️ Componentes Analisados
+    </div>
+    
     <div class="components-section">
       ${data.componentes.map(comp => {
         let statusClass = 'status-original';
@@ -475,26 +670,56 @@ const createHTMLTemplate = (data: ReportData, imageUrls: string[] = [], quilomet
           <div class="component-item">
             <div class="component-name">${comp.nome}</div>
             <div class="component-status ${statusClass}">${comp.estado}</div>
-            <div style="color: #666; font-size: 14px; margin-top: 5px;">${comp.conclusao}</div>
+            <div class="component-conclusion">${comp.conclusao}</div>
           </div>
         `;
       }).join('')}
     </div>
     ` : ''}
 
-    <h3>📋 Observações Finais</h3>
-    <ul style="line-height: 1.8;">
-      <li>Laudo gerado com base em imagens e análise por IA.</li>
-      <li>Conforme protocolo técnico padrão ReviuCar.</li>
-      <li>Documento com validade técnica para avaliação veicular.</li>
-      <li>Análise não substitui perícia física completa.</li>
-    </ul>
-
-    <div class="footer">
-      <strong>ReviuCar – Avaliação Inteligente de Veículos</strong><br>
-      🌐 www.reviucar.com.br • ✉️ contato@reviucar.com.br • 📱 (61) 98187-5542<br>
-      <small>Documento gerado automaticamente em ${currentDate} • Protocolo: ${protocolNumber}</small>
+    <div class="section-header">
+      📋 Conclusão Técnica Final
     </div>
+
+    <div class="conclusion-box">
+      <div class="conclusion-title">
+        🎯 Parecer Técnico Especializado
+      </div>
+      <div class="conclusion-text">
+        <strong>Resumo da Análise:</strong> ${data.sintese.resumo}
+      </div>
+      <div class="conclusion-text">
+        <strong>Conclusão Final:</strong> ${data.sintese.conclusao_final}
+      </div>
+    </div>
+
+    <div class="section-header">
+      📝 Observações Técnicas
+    </div>
+
+    <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; border-left: 5px solid #6c757d;">
+      <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+        <li style="margin-bottom: 10px;">✓ Laudo gerado com base em análise por inteligência artificial</li>
+        <li style="margin-bottom: 10px;">✓ Metodologia técnica conforme padrões ReviuCar</li>
+        <li style="margin-bottom: 10px;">✓ Documento com validade técnica para avaliação veicular</li>
+        <li style="margin-bottom: 10px;">⚠️ Análise complementar à inspeção física presencial</li>
+        <li style="margin-bottom: 10px;">📋 Recomenda-se verificação mecânica adicional</li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, #DC2626, #991B1B); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-top: 30px;">
+      <div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">
+        🏆 ReviuCar - Avaliação Inteligente de Veículos
+      </div>
+      <div style="font-size: 14px; opacity: 0.9;">
+        🌐 www.reviucar.com.br • ✉️ contato@reviucar.com.br • 📱 (61) 98187-5542
+      </div>
+      <div style="font-size: 12px; opacity: 0.8; margin-top: 10px;">
+        Documento gerado automaticamente em ${currentDate} • Protocolo: ${protocolNumber}
+      </div>
+    </div>
+
+    <div class="page-number">Página 3</div>
   </div>
 
 </body>
@@ -525,18 +750,18 @@ export const generatePDF = async (reportData: ReportData, imageUrls: string[] = 
     tempDiv.style.left = '-9999px';
     tempDiv.style.width = '794px'; // A4 width in pixels at 96 DPI
     tempDiv.style.backgroundColor = 'white';
-    tempDiv.style.padding = '40px';
+    tempDiv.style.padding = '0';
     tempDiv.style.boxSizing = 'border-box';
     
     document.body.appendChild(tempDiv);
 
     // Wait for fonts and images to load
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     // Convert HTML to canvas with better settings for multi-page content
     const canvas = await html2canvas(tempDiv, {
       width: 794,
-      scale: 1.5,
+      scale: 2,
       useCORS: true,
       allowTaint: true,
       backgroundColor: 'white',
